@@ -18,7 +18,7 @@ export default function LessonPage() {
             </div>
             <PDFRenderer
               url={
-                "https://utfs.io/f/6a6b92ed-1e3a-4aa1-a42e-0c29868b6886-774k8w.pdf"
+                "https://utfs.io/f/d0b79411-1453-4a72-984f-edf73f7f4cd7-8tcto4.pdf"
               }
             />
           </div>
