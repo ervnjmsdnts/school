@@ -1,5 +1,4 @@
 import MenuButton from "@/components/menu-button";
-import Link from "next/link";
 
 export default function MainMenuPage() {
   return (

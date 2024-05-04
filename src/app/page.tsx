@@ -1,25 +1,25 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className='h-full'>
-      <div className='fixed -z-10 w-screen h-screen'>
+    <main className="h-full">
+      <div className="fixed -z-10 h-screen w-screen">
         <Image
-          src='/OpenScreen2.0.gif'
-          alt='splashscreen'
-          objectFit='fill'
-          layout='fill'
+          src="/main.gif"
+          alt="splashscreen"
+          objectFit="fill"
+          layout="fill"
         />
       </div>
-      <div className='flex justify-center items-center h-full'>
-        <Link href='/input-name'>
-          <div className='relative top-16 w-80 h-64'>
+      <div className="flex h-full items-center justify-center">
+        <Link href="/input-name">
+          <div className="relative top-16 h-64 w-80">
             <Image
-              src='/startBtn.png'
-              className='animate-bounce'
-              alt='Start Button'
-              layout='fill'
+              src="/startBtn.png"
+              className="animate-bounce"
+              alt="Start Button"
+              layout="fill"
             />
           </div>
         </Link>
