@@ -1,6 +1,5 @@
 import BackButton from "@/components/back-button";
 import MenuButton from "@/components/menu-button";
-import Link from "next/link";
 
 export default function SubjectsPage() {
   return (
@@ -9,10 +8,10 @@ export default function SubjectsPage() {
         <BackButton />
         <h1 className="text-3xl">Choose the subject you want to learn</h1>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4">
         <MenuButton href="/subjects/english">English</MenuButton>
         <MenuButton href="/subjects/filipino">Filipino</MenuButton>
-        <MenuButton href="/subjects/math">Math</MenuButton>
+        <MenuButton href="/subjects/math">Mathematics</MenuButton>
       </div>
     </div>
   );

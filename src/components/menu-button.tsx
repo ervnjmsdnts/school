@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
+import { Button } from "./ui/button";
 
 interface MenuButtonProps extends PropsWithChildren {
   href: string;
@@ -8,11 +9,12 @@ interface MenuButtonProps extends PropsWithChildren {
 
 export default function MenuButton({ href, children }: MenuButtonProps) {
   return (
-    <Link
-      href={href}
-      className="rounded-lg border-2 border-amber-800 bg-amber-600 px-16 py-8 text-center text-xl font-bold text-white hover:animate-pulse"
+    <Button
+      size="xl"
+      className="border-border border-2 text-xl hover:animate-pulse"
+      asChild
     >
-      {children}
-    </Link>
+      <Link href={href}>{children}</Link>
+    </Button>
   );
 }
