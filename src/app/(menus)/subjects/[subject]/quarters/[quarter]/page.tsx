@@ -17,7 +17,7 @@ export default function QuarterPage({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <MenuButton href={`${baseUrl}/lessons`}>Lessons</MenuButton>
-        <MenuButton href={`${baseUrl}/activities`}>Activities</MenuButton>
+        <MenuButton href={`${baseUrl}/quizzes`}>Quizzes</MenuButton>
         <MenuButton href={`${baseUrl}/videos`}>Videos</MenuButton>
         <MenuButton href={`${baseUrl}/scores`}>Scores</MenuButton>
       </div>

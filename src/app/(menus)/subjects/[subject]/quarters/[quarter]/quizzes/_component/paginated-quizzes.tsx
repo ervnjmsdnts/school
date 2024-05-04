@@ -10,13 +10,13 @@ type ActivitiesType = {
   name: string;
 };
 
-export default function PaginatedActivities({
+export default function PaginatedQuizzes({
   activities,
 }: {
   activities: ActivitiesType[];
 }) {
   const params = useParams<{ quarter: string; subject: string }>();
-  const baseUrl = `/subjects/${params.subject}/quarters/${params.quarter}/activities`;
+  const baseUrl = `/subjects/${params.subject}/quarters/${params.quarter}/quizzes`;
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -32,9 +32,9 @@ export default function PaginatedActivities({
   return (
     <div className="flex w-96 flex-col gap-8">
       <div className="flex flex-col gap-4">
-        {currentItems.map((activity, index) => (
+        {currentItems.map((quiz, index) => (
           <MenuButton key={index} href={`${baseUrl}/fjioewa`}>
-            {activity.name}
+            {quiz.name}
           </MenuButton>
         ))}
       </div>
