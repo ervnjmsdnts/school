@@ -1,15 +1,38 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { Activity } from "@/lib/types";
+import { db } from "@/lib/firebase";
+import { Activity, Student } from "@/lib/types";
+import { addDoc, collection } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Results({
   score,
-  questions,
+  quiz,
   answerList,
 }: {
   score: number;
-  questions: Activity["questions"];
+  quiz: Activity;
   answerList: (number | null)[];
 }) {
+  const router = useRouter();
+  const handleSubmit = async () => {
+    try {
+      const student = JSON.parse(localStorage.getItem("student")!) as Student;
+      const ref = collection(db, "scores");
+      await addDoc(ref, {
+        score,
+        studentName: student.name,
+        quizName: quiz.name,
+        subject: quiz.subject,
+        type: quiz.type,
+      });
+      router.back();
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <div className="h-full bg-amber-800 p-8">
       <div className="h-full border border-amber-900 p-4">
@@ -18,11 +41,11 @@ export default function Results({
             <div className="flex items-center gap-2">
               <p className="text-2xl">Your Score:</p>
               <p className="text-xl">
-                {score}/{questions.length}
+                {score}/{quiz.questions.length}
               </p>
             </div>
             <div className="flex flex-col gap-4">
-              {questions.map((question, questionIndex) => (
+              {quiz.questions.map((question, questionIndex) => (
                 <div key={questionIndex} className="flex flex-col gap-2">
                   <p className="text-lg font-bold">
                     {questionIndex + 1}. {question.question}
@@ -50,7 +73,9 @@ export default function Results({
                 </div>
               ))}
             </div>
-            <Button className="mt-8 w-full text-xl">Submit</Button>
+            <Button className="mt-8 w-full text-xl" onClick={handleSubmit}>
+              Submit
+            </Button>
           </div>
         </div>
       </div>

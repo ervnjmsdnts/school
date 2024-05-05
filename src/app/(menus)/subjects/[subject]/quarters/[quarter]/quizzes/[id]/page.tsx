@@ -53,13 +53,7 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
   };
 
   if (showScore) {
-    return (
-      <Results
-        score={score}
-        questions={quiz.questions}
-        answerList={answerList}
-      />
-    );
+    return <Results score={score} quiz={quiz} answerList={answerList} />;
   }
 
   return (
