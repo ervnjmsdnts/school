@@ -10,6 +10,8 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { useResizeDetector } from "react-resize-detector";
 import { z } from "zod";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -45,7 +47,8 @@ export default function PDFRenderer({ url }: { url: string }) {
     <div className="flex h-full w-full flex-col items-center rounded-lg bg-white shadow-md">
       <div className="flex w-full items-center justify-between border-b border-zinc-200">
         <div className="flex items-center gap-1.5">
-          <button
+          <Button
+            variant="ghost"
             disabled={currPage <= 1}
             onClick={() => {
               setCurrPage((prev) => (prev - 1 > 1 ? prev - 1 : 1));
@@ -53,10 +56,10 @@ export default function PDFRenderer({ url }: { url: string }) {
             }}
           >
             <ChevronLeft className="h-4 w-4" />
-          </button>
+          </Button>
 
           <div className="flex items-center gap-1.5">
-            <input
+            <Input
               {...form.register("page")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -74,8 +77,9 @@ export default function PDFRenderer({ url }: { url: string }) {
             </p>
           </div>
 
-          <button
+          <Button
             disabled={numPages === undefined || currPage === numPages}
+            variant="ghost"
             onClick={() => {
               setCurrPage((prev) =>
                 prev + 1 > numPages! ? numPages! : prev + 1,
@@ -84,7 +88,7 @@ export default function PDFRenderer({ url }: { url: string }) {
             }}
           >
             <ChevronRight className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
       </div>
       <div className="w-full flex-1">
