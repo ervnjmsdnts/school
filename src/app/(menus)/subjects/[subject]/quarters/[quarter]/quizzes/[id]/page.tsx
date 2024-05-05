@@ -1,44 +1,66 @@
 "use client";
 
+import { db } from "@/lib/firebase";
+import { Activity } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { doc, getDoc } from "firebase/firestore";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-const questions = [
-  {
-    question: "Hi how are you?",
-    options: ["Fine", "Good", "Sad", "Happy"],
-    answer: 0,
-    image: null,
-  },
-  {
-    question: "My name?",
-    options: ["Joe", "Bob", "Jane", "John"],
-    answer: 1,
-    image: true,
-  },
-];
+import { useEffect, useState } from "react";
+import Results from "../_component/results";
 
 export default function ActivityPage({ params }: { params: { id: string } }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [quiz, setQuiz] = useState<Activity>({} as Activity);
   const [selected, setSelected] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const router = useRouter();
+  const [answerList, setAnswerList] = useState<(number | null)[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      (async () => {
+        const quizRef = doc(db, "activities", `${params.id}`);
+        const snapshot = await getDoc(quizRef);
+        setQuiz({
+          id: snapshot.id,
+          name: snapshot.data()?.name,
+          questions: snapshot.data()?.questions,
+          createdAt: snapshot.data()?.createdAt,
+          subject: snapshot.data()?.subject,
+          type: snapshot.data()?.type,
+        });
+        setIsLoading(false);
+      })();
+    })();
+  }, [params.id]);
 
   const handleNextQuestion = () => {
-    if (selected === questions[questionIndex].answer) {
+    if (selected === quiz.questions[questionIndex].answer) {
       setScore((prev) => prev + 1);
     }
-    if (questionIndex < questions.length - 1) {
+
+    setAnswerList((prev) => [...prev, selected]);
+    if (questionIndex < quiz.questions.length - 1) {
       setSelected(null);
       setQuestionIndex((prev) => prev + 1);
     } else {
       setShowScore(true);
     }
   };
+
+  if (showScore) {
+    return (
+      <Results
+        score={score}
+        questions={quiz.questions}
+        answerList={answerList}
+      />
+    );
+  }
 
   return (
     <div className="relative h-full bg-amber-800">
@@ -48,21 +70,29 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
       >
         <ArrowLeft className="h-8 w-8 text-white" />
       </button>
-      {!showScore ? (
+      {isLoading ? (
+        <div className="flex h-full items-center justify-center">
+          <Loader2 className="h-6 w-6 animate-spin text-white" />
+        </div>
+      ) : (
         <div className="grid h-full grid-rows-2 gap-8 p-8">
           {/* Questions */}
           <div className="rounded-lg border border-amber-900 p-8 text-white">
             <div
               className={cn("flex h-full items-center justify-center gap-8")}
             >
-              {questions[questionIndex].image && (
+              {quiz.questions[questionIndex].imageUrl && (
                 <div className="relative aspect-video h-full">
-                  <Image src="/startBtn.png" alt="Logo" layout="fill" />
+                  <Image
+                    src={quiz.questions[questionIndex].imageUrl!}
+                    alt="Logo"
+                    layout="fill"
+                  />
                 </div>
               )}
               <div className="flex w-full flex-1 justify-center">
                 <p className="max-w-96 text-center text-2xl">
-                  {questions[questionIndex].question}
+                  {quiz.questions[questionIndex].question}
                 </p>
               </div>
             </div>
@@ -70,7 +100,7 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
           {/* Options */}
           <div className="flex flex-col gap-4">
             <div className="grid h-full w-full grid-cols-4 gap-2">
-              {questions[questionIndex].options.map((option, index) => (
+              {quiz.questions[questionIndex].options.map((option, index) => (
                 <button
                   onClick={() => setSelected(index)}
                   className={cn(
@@ -106,13 +136,6 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
               </button>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="flex h-full flex-col items-center justify-center gap-4 text-white">
-          <p className="text-2xl">Your Score:</p>
-          <p className="text-xl">
-            {score}/{questions.length}
-          </p>
         </div>
       )}
     </div>
