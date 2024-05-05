@@ -13,6 +13,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { db } from "@/lib/firebase";
 import { Score } from "@/lib/types";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -106,37 +107,43 @@ export default function ScoresPage() {
         <BackButton />
         <h3 className="text-3xl">Leaderboard</h3>
       </div>
-      <div className="flex w-full max-w-[600px] flex-col gap-4 rounded-lg bg-white p-4">
-        <div className="flex items-center gap-2 overflow-x-auto">
-          {quizzes.map((quiz, index) => (
-            <Toggle
-              key={index}
-              pressed={quiz === selected}
-              onPressedChange={() => handleSelected(quiz)}
-            >
-              <p className="max-w-64 truncate">{quiz}</p>
-            </Toggle>
-          ))}
+      {isLoading ? (
+        <div className="flex w-full items-center justify-center">
+          <Loader2 className="h-6 w-6 animate-spin" />
         </div>
-        <div className="">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Score</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {scoresToDisplay.map((score, index) => (
-                <TableRow key={index}>
-                  <TableCell>{score.studentName}</TableCell>
-                  <TableCell>{score.score}</TableCell>
+      ) : (
+        <div className="flex w-full max-w-[600px] flex-col gap-4 rounded-lg bg-white p-4">
+          <div className="flex items-center gap-2 overflow-x-auto">
+            {quizzes.map((quiz, index) => (
+              <Toggle
+                key={index}
+                pressed={quiz === selected}
+                onPressedChange={() => handleSelected(quiz)}
+              >
+                <p className="max-w-64 truncate">{quiz}</p>
+              </Toggle>
+            ))}
+          </div>
+          <div className="">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Score</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {scoresToDisplay.map((score, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{score.studentName}</TableCell>
+                    <TableCell>{score.score}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
