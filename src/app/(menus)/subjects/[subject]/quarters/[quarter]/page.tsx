@@ -19,7 +19,7 @@ export default function QuarterPage({
         <MenuButton href={`${baseUrl}/lessons`}>Lessons</MenuButton>
         <MenuButton href={`${baseUrl}/quizzes`}>Quizzes</MenuButton>
         <MenuButton href={`${baseUrl}/videos`}>Videos</MenuButton>
-        <MenuButton href={`${baseUrl}/scores`}>Scores</MenuButton>
+        <MenuButton href={`${baseUrl}/scores`}>Leaderboards</MenuButton>
       </div>
     </div>
   );

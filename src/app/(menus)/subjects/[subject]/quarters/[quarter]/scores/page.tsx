@@ -1,3 +1,142 @@
+"use client";
+
+import BackButton from "@/components/back-button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Toggle } from "@/components/ui/toggle";
+import { db } from "@/lib/firebase";
+import { Score } from "@/lib/types";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
 export default function ScoresPage() {
-  return <div className="flex h-full items-center justify-center">Hi</div>;
+  const { subject, quarter } = useParams<{
+    subject: string;
+    quarter: string;
+  }>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [scores, setScores] = useState<Score[]>([]);
+  const [selected, setSelected] = useState<null | string>(null);
+
+  useEffect(() => {
+    (async () => {
+      const scoresRef = collection(db, "scores");
+      const q = query(
+        scoresRef,
+        where("subject", "==", subject),
+        where("type", "==", quarter),
+      );
+      const snapshot = await getDocs(q);
+      let data: Score[] = [];
+      snapshot.forEach((doc) =>
+        data.push({
+          subject: doc.data().subject,
+          type: doc.data().type,
+          createdAt: doc.data().createdAt,
+          id: doc.id,
+          quizName: doc.data().quizName,
+          score: doc.data().score,
+          studentName: doc.data().studentName,
+        }),
+      );
+      setScores(data);
+      setIsLoading(false);
+    })();
+  }, [quarter, subject]);
+
+  const top10ByQuiz = useMemo(() => {
+    return scores
+      .filter((score) => score.quizName === selected)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+  }, [scores, selected]);
+
+  const combinedStudentsScores = useMemo(() => {
+    let studentScoresMap = new Map<string, number>();
+
+    scores.forEach((doc) => {
+      const studentName = doc.studentName;
+      const score = doc.score;
+      if (studentScoresMap.has(studentName)) {
+        const currentScore = studentScoresMap.get(studentName)!;
+        studentScoresMap.set(studentName, currentScore + score);
+      } else {
+        studentScoresMap.set(studentName, score);
+      }
+    });
+
+    const combinedStudentScores = Array.from(studentScoresMap)
+      .map(([studentName, score]) => ({
+        studentName,
+        score,
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return combinedStudentScores;
+  }, [scores]);
+
+  const scoresToDisplay = selected ? top10ByQuiz : combinedStudentsScores;
+
+  const quizzes = useMemo(() => {
+    const uniqueNames: string[] = [];
+    scores.forEach((item) => {
+      if (!uniqueNames.includes(item.quizName)) uniqueNames.push(item.quizName);
+    });
+    return uniqueNames.sort();
+  }, [scores]);
+
+  const handleSelected = (quiz: string) => {
+    if (selected === quiz) {
+      setSelected(null);
+    } else {
+      setSelected(quiz);
+    }
+  };
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-16">
+      <div className="flex items-center gap-8">
+        <BackButton />
+        <h3 className="text-3xl">Leaderboard</h3>
+      </div>
+      <div className="flex w-full max-w-[600px] flex-col gap-4 rounded-lg bg-white p-4">
+        <div className="flex items-center gap-2 overflow-x-auto">
+          {quizzes.map((quiz, index) => (
+            <Toggle
+              key={index}
+              pressed={quiz === selected}
+              onPressedChange={() => handleSelected(quiz)}
+            >
+              <p className="max-w-64 truncate">{quiz}</p>
+            </Toggle>
+          ))}
+        </div>
+        <div className="">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Score</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {scoresToDisplay.map((score, index) => (
+                <TableRow key={index}>
+                  <TableCell>{score.studentName}</TableCell>
+                  <TableCell>{score.score}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
 }

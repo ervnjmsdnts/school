@@ -26,6 +26,7 @@ export default function Results({
         quizName: quiz.name,
         subject: quiz.subject,
         type: quiz.type,
+        createdAt: new Date().getTime(),
       });
       router.back();
     } catch (error) {

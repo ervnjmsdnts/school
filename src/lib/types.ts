@@ -31,3 +31,13 @@ export type Activity = {
 };
 
 export type LessonInfo = Omit<Lesson, "url" | "fileName" | "subject" | "type">;
+
+export type Score = {
+  id: string;
+  studentName: string;
+  quizName: string;
+  score: number;
+  subject: "english" | "filipino" | "math";
+  type: "1st" | "2nd" | "3rd" | "4th";
+  createdAt: number;
+};
