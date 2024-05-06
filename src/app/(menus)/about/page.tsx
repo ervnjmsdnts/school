@@ -47,7 +47,7 @@ export default function AboutPage() {
           onCheckedChange={() => setToggle((prev) => !prev)}
         />
         <Label className="text-xl" htmlFor="toggle">
-          {toggle ? "Tagalog" : "English"}
+          {toggle ? "English" : "Tagalog"}
         </Label>
       </div>
       <div className="flex max-w-[1000px] flex-col gap-8 rounded-md bg-white p-8">
