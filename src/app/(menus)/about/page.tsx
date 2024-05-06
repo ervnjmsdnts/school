@@ -14,6 +14,7 @@ const texts = {
       "Software Developer: Gerick O. Recinto",
       "Hardware Creator: Chrystian Dominic Recio",
       "Designer and Music: Eduard C. Morete",
+      "Contents Maker: Kaye Valenzuela",
     ],
   },
   tagalog: {
@@ -24,6 +25,7 @@ const texts = {
       "Software Developer: Gerick O. Recinto",
       "Hardware Creator: Chrystian Dominic Recio",
       "Designer and Music: Eduard C. Morete",
+      "Contents Maker: Kaye Valenzuela",
     ],
   },
 };
@@ -62,7 +64,14 @@ export default function AboutPage() {
           <ul className="list-disc">
             {(toggle ? texts.english : texts.tagalog).list.map(
               (item, index) => (
-                <li key={index}>{item}</li>
+                <li
+                  key={index}
+                  className={cn(
+                    item === "Contents Maker: Kaye Valenzuela" && "text-xs",
+                  )}
+                >
+                  {item}
+                </li>
               ),
             )}
           </ul>
