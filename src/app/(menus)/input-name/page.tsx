@@ -67,15 +67,15 @@ export default function InputNamePage() {
             <div className="grid gap-2">
               <p className="text-lg font-bold">Ito ang S.M.A.R.T.</p>
               <p className="text-sm">
-                The Student Mastery and Academic Resource Terminal
+                Ang Student Mastery and Academic Resource Terminal
               </p>
               <p className="text-sm">
-                Ginawa ito upang kayo ay matuto sa inyong mga subjects na
-                Matematika, Engles at Filipino.
+                Nilikha ito upang ikaw ay matuto sa mga subject na Matematika,
+                Ingles at Filipino.
               </p>
               <p className="text-sm">
-                Ano pa ang inyong hinihintay Ilagay nyo na ang Inyong mga
-                pangalan at tayo ay magsimula na.
+                Kaya ano pa ang iyong hinihintay? Ilagay mo na ang iyong
+                pangalan upang tayo ay makapag simula na.
               </p>
               <DialogClose asChild>
                 <Button type="button">Start!</Button>

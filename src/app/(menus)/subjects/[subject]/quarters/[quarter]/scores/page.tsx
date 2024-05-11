@@ -16,6 +16,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { format } from "date-fns";
 
 export default function ScoresPage() {
   const { subject, quarter } = useParams<{
@@ -60,23 +61,32 @@ export default function ScoresPage() {
   }, [scores, selected]);
 
   const combinedStudentsScores = useMemo(() => {
-    let studentScoresMap = new Map<string, number>();
+    let studentScoresMap = new Map<
+      string,
+      { score: number; createdAt: number }
+    >();
 
     scores.forEach((doc) => {
       const studentName = doc.studentName;
       const score = doc.score;
+      const createdAt = doc.createdAt;
+
       if (studentScoresMap.has(studentName)) {
-        const currentScore = studentScoresMap.get(studentName)!;
-        studentScoresMap.set(studentName, currentScore + score);
+        const currentScoreObj = studentScoresMap.get(studentName)!;
+        studentScoresMap.set(studentName, {
+          score: currentScoreObj.score + score,
+          createdAt: currentScoreObj.createdAt, // Retain the original createdAt
+        });
       } else {
-        studentScoresMap.set(studentName, score);
+        studentScoresMap.set(studentName, { score, createdAt });
       }
     });
 
     const combinedStudentScores = Array.from(studentScoresMap)
-      .map(([studentName, score]) => ({
+      .map(([studentName, scoreObj]) => ({
         studentName,
-        score,
+        score: scoreObj.score,
+        createdAt: scoreObj.createdAt,
       }))
       .sort((a, b) => b.score - a.score);
 
@@ -130,6 +140,7 @@ export default function ScoresPage() {
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Score</TableHead>
+                  {selected && <TableHead>Date & Time</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -137,6 +148,9 @@ export default function ScoresPage() {
                   <TableRow key={index}>
                     <TableCell>{score.studentName}</TableCell>
                     <TableCell>{score.score}</TableCell>
+                    {selected && (
+                      <TableCell>{format(score.createdAt, "Pp")}</TableCell>
+                    )}
                   </TableRow>
                 ))}
               </TableBody>

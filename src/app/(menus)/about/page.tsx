@@ -7,8 +7,8 @@ import { useState } from "react";
 
 const texts = {
   english: {
-    p1: '"Student Mastery and Academic Resource Terminal" (SMART) for Grade 2 students of Marawoy Elementary School! S.M.A.R.T. is your ultimate companion in learning, designed specifically to support and enhance the educational journey of young learners. Our kiosk blends fun and education seamlessly, offering a range of interactive resources and tools to help students master academic skills while having a great time',
-    p2: "S.M.A.R.T. provides engaging activities and educational quizzes, videos and books tailored to Grade 2 curriculum standards. From math challenges to language arts exercises, students can explore various subjects in an exciting and immersive way. The kiosk features colorful graphics, friendly interfaces, and intuitive controls, making learning a delightful adventure for every child.",
+    p1: 'The "Student Mastery and Academic Resource Terminal" (S.M.A.R.T.) is created for students in Grade 2 of Marawoy Elementary School. It will be your partner in learning your subjects in English, Mathematics, and Filipino. It was developed to support and improve the educational journey of young learners. Our kiosk blends fun and education by offering various interactive activities and tools to help students understand academic skills while enjoying themselves.',
+    p2: "S.M.A.R.T. provides educational activities and quizzes, enriching videos, and modules aligned with Grade 2 curriculum standards. Starting from Math challenges to English and Filipino exercises, students can explore different topics in an exciting and engaging manner. The kiosk features colorful graphics, a friendly interface, and easy-to-use controls, all combined to create a platform that makes learning and education more enjoyable for every child using the kiosk.",
     helper: "Creators:",
     list: [
       "Software Developer: Gerick O. Recinto",
@@ -18,8 +18,8 @@ const texts = {
     ],
   },
   tagalog: {
-    p1: '"Student Mastery and Academic Resource Terminal" (SMART) para sa mga mag-aaral sa Baitang 2 ng Marawoy Elementary School! Ang S.M.A.R.T. ay ang iyong tunay na kasama sa pag-aaral, partikular na idinisenyo upang suportahan at pahusayin ang pang-edukasyon na paglalakbay ng mga batang mag-aaral. Ang aming kiosk ay pinagsasama ang saya at edukasyon nang walang putol, na nag-aalok ng isang hanay ng mga interactive na mapagkukunan at tool upang matulungan ang mga mag-aaral na makabisado ang mga kasanayang pang-akademiko habang nagkakaroon ng magandang oras.',
-    p2: "S.M.A.R.T. nagbibigay ng mga aktibidad at pang-edukasyon na pagsusulit, mga video at aklat na iniayon sa mga pamantayan ng kurikulum ng Baitang 2. Mula sa mga hamon sa matematika hanggang sa mga pagsasanay sa sining ng wika, maaaring tuklasin ng mga mag-aaral ang iba't ibang paksa sa isang kapana-panabik at nakaka-engganyong paraan. Nagtatampok ang kiosk ng mga makukulay na graphics, mga friendly na interface, at mga intuitive na kontrol, na ginagawang isang kasiya-siyang pakikipagsapalaran ang pag-aaral para sa bawat bata.",
+    p1: 'Ang "Student Mastery and Academic Resource Terminal" (S.M.A.R.T.) ay nilikha para sa mga mag-aaral sa Baitang 2 ng Marawoy Elementary School. Ito ang inyong magiging katuwang sa pag-aaral ng inyong mga asignatura na Ingles, Matimatika at Filipino. Ito ay binuo upang suportahan at mapabuti ang paglalakbay sa edukasyon ng mga batang mag-aaral. Ang aming kiosk ay pinagsama ang saya at edukasyon na nag-aalok ng ibat ibang interactive na mga gawain at kasangkapan upang matulungan ang mga mag-aaral na maunawaan ang mga akademikong kasanayan habang nag-eenjoy.',
+    p2: "Ang S.M.A.R.T. ay nagbibigay ng mga aktibidad at pang-edukasyon na pagsusulit, mga may kapupulutang aral na videos at modules na iniayon sa mga pamantayan ng kurikulum ng Baitang 2. Mula sa mga hamon sa matematika hanggang sa mga pagsasanay sa Ingles at Filipino, maaaring tuklasin ng mga mag-aaral ang iba't ibang paksa sa isang kapana-panabik at nakakaengganyong paraan. Ang kiosk ay may mga makukulay na grapika, magiliw na interface, at madaling gamitin na mga kontrol, na pinagsama-sama upang makagawa ng isang platform mas maging masaya ang pag-aaral at pagkatuto ng bawat bata na gumagamit ng kiosk.",
     helper: "Mga Gumawa:",
     list: [
       "Software Developer: Gerick O. Recinto",

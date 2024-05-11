@@ -12,7 +12,7 @@ export default function QuartersPage({
         <BackButton />
         <h1 className="text-3xl">Choose which quarter</h1>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="grid grid-cols-2 items-center gap-4">
         <MenuButton href={`/subjects/${params.subject}/quarters/1st`}>
           1st Quarter
         </MenuButton>
