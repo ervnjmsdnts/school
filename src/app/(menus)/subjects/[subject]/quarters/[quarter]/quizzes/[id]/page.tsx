@@ -98,7 +98,7 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
                 <button
                   onClick={() => setSelected(index)}
                   className={cn(
-                    "relative h-full w-full rounded-lg text-xl text-white",
+                    "relative h-full w-full rounded-lg text-2xl text-white",
                     index === 0
                       ? "bg-red-500"
                       : index === 1
@@ -123,7 +123,7 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
               <button
                 onClick={handleNextQuestion}
                 disabled={selected === null}
-                className="flex items-center gap-4 rounded-lg bg-amber-600 p-2 text-white disabled:bg-gray-500"
+                className="flex items-center gap-4 rounded-lg bg-amber-600 p-2 text-xl text-white disabled:bg-gray-500"
               >
                 Next
                 <ArrowRight className="h-8 w-8" />

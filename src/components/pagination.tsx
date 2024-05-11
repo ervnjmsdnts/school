@@ -12,7 +12,7 @@ export default function Pagination({
 }) {
   return (
     <div className="flex items-center justify-end gap-8">
-      <span className="text-lg">
+      <span className="text-xl">
         Page {currentPage} of {totalPages}
       </span>
       <div className="flex items-center justify-end gap-2">

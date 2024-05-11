@@ -12,7 +12,7 @@ async function PDF({ params }: { params: { id: string } }) {
     <div className="flex h-full flex-1 flex-col gap-4 p-8">
       <div className="flex items-center gap-2 rounded-lg bg-white p-2 ">
         <BackButton />
-        <h2 className="text-center text-xl text-amber-800">
+        <h2 className="text-center text-3xl text-amber-800">
           {lesson.data()?.name}
         </h2>
       </div>

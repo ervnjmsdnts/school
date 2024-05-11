@@ -11,7 +11,7 @@ export default function MenuButton({ href, children }: MenuButtonProps) {
   return (
     <Button
       size="xl"
-      className="border-border border-2 text-xl hover:animate-pulse"
+      className="border-2 border-border text-2xl hover:animate-pulse"
       asChild
     >
       <Link href={href}>{children}</Link>

@@ -8,7 +8,7 @@ import AudioProvider from "@/components/audio-content";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const eraser = localFont({ src: "../../public/Eraser.ttf" });
+const kiddos = localFont({ src: "../../public/Kiddos.ttf" });
 
 export const metadata: Metadata = {
   title: "SMART KIOSK",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={eraser.className}>
+      <body className={kiddos.className}>
         <AudioProvider>
           <AudioPlayer />
           <Toaster position="bottom-center" />

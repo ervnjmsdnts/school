@@ -67,11 +67,11 @@ export default function PDFRenderer({ url }: { url: string }) {
                 }
               }}
               className={cn(
-                "h-8 w-12",
+                "h-8 w-12 text-lg",
                 form.formState.errors.page && "focus-visible:ring-red-400",
               )}
             />
-            <p className="space-x-1 text-sm">
+            <p className="space-x-1 text-lg">
               <span>/</span>
               <span>{numPages ?? "x"}</span>
             </p>

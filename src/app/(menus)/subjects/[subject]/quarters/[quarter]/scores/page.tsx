@@ -130,12 +130,12 @@ export default function ScoresPage() {
                 pressed={quiz === selected}
                 onPressedChange={() => handleSelected(quiz)}
               >
-                <p className="max-w-64 truncate">{quiz}</p>
+                <p className="max-w-64 truncate text-xl">{quiz}</p>
               </Toggle>
             ))}
           </div>
           <div className="">
-            <Table>
+            <Table className="text-xl">
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
