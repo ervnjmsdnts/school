@@ -23,9 +23,9 @@ const texts = {
     helper: "Mga Gumawa:",
     list: [
       "Software Developer: Gerick O. Recinto",
-      "Hardware Creator: Chrystian Dominic Recio",
+      "Hardware Creator: Chrystian Dominic F. Recio",
       "Designer and Music: Eduard C. Morete",
-      "Contents: Kaye Valenzuela",
+      "Contents: Kaye D. Valenzuela",
     ],
   },
 };
@@ -51,25 +51,16 @@ export default function AboutPage() {
         </Label>
       </div>
       <div className="flex max-w-[1000px] flex-col gap-8 rounded-md bg-white p-8">
-        <p className="text-center text-lg">
-          {(toggle ? texts.english : texts.tagalog).p1}
-        </p>
-        <p className="text-center text-lg">
-          {(toggle ? texts.english : texts.tagalog).p2}
-        </p>
+        <p className="text-xl">{(toggle ? texts.english : texts.tagalog).p1}</p>
+        <p className="text-xl">{(toggle ? texts.english : texts.tagalog).p2}</p>
         <div className="flex flex-col gap-4">
-          <h3 className="font-bold">
+          <h3 className="text-2xl font-bold">
             {(toggle ? texts.english : texts.tagalog).helper}
           </h3>
           <ul className="list-disc">
             {(toggle ? texts.english : texts.tagalog).list.map(
               (item, index) => (
-                <li
-                  key={index}
-                  className={cn(
-                    item === "Contents: Kaye Valenzuela" && "text-xs",
-                  )}
-                >
+                <li key={index} className={cn("text-2xl")}>
                   {item}
                 </li>
               ),

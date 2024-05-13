@@ -5,12 +5,7 @@ export default function Home() {
   return (
     <main className="h-full">
       <div className="fixed -z-10 h-screen w-screen">
-        <Image
-          src="/main.gif"
-          alt="splashscreen"
-          objectFit="fill"
-          layout="fill"
-        />
+        <Image src="/main.gif" alt="splashscreen" objectFit="fill" fill />
       </div>
       <div className="flex h-full items-center justify-center">
         <Link href="/input-name">
