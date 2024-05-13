@@ -9,9 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { db } from "@/lib/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -39,18 +37,21 @@ export default function InputNamePage() {
 
   const onSubmit = async (data: FormData) => {
     const name = data.name.split(" ").join("").toLowerCase();
-    try {
-      const ref = collection(db, "students");
-      const q = query(ref, where("nameInput", "==", name));
-      const studentQuery = await getDocs(q);
-      if (studentQuery.empty) return toast.error("Student does not exist");
-      const student = studentQuery.docs.map((d) => d.data())[0];
-      localStorage.setItem("student", JSON.stringify(student));
+    const res = await fetch("/api/login", {
+      body: JSON.stringify({ name }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      router.push("/main-menu");
-    } catch (error) {
-      toast.error("Something went wrong");
+    const resData: { message: string } = await res.json();
+
+    if (res.status !== 200) {
+      return toast.error(resData.message);
     }
+
+    return router.push("/main-menu");
   };
 
   return (
@@ -58,7 +59,7 @@ export default function InputNamePage() {
       <Dialog onOpenChange={() => setOpenDialog(false)} open={openDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Kamusta! mga Bata!</DialogTitle>
+            <DialogTitle className="text-2xl">Kamusta! mga Bata!</DialogTitle>
           </DialogHeader>
           <div className="grid grid-cols-2 items-center">
             <div className="relative flex h-64 w-56">
@@ -66,19 +67,19 @@ export default function InputNamePage() {
             </div>
             <div className="grid gap-2">
               <p className="text-lg font-bold">Ito ang S.M.A.R.T.</p>
-              <p className="text-sm">
-                Ang Student Mastery and Academic Resource Terminal
-              </p>
-              <p className="text-sm">
+              <p>Ang Student Mastery and Academic Resource Terminal</p>
+              <p>
                 Nilikha ito upang ikaw ay matuto sa mga subject na Matematika,
                 Ingles at Filipino.
               </p>
-              <p className="text-sm">
+              <p>
                 Kaya ano pa ang iyong hinihintay? Ilagay mo na ang iyong
                 pangalan upang tayo ay makapag simula na.
               </p>
               <DialogClose asChild>
-                <Button type="button">Start!</Button>
+                <Button type="button" className="text-lg">
+                  Start!
+                </Button>
               </DialogClose>
             </div>
           </div>

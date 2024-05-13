@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
 import { Activity, Student } from "@/lib/types";
 import { addDoc, collection } from "firebase/firestore";
+import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -16,9 +17,10 @@ export default function Results({
   answerList: (number | null)[];
 }) {
   const router = useRouter();
+  const cookie = useCookies().get("student");
   const handleSubmit = async () => {
     try {
-      const student = JSON.parse(localStorage.getItem("student")!) as Student;
+      const student = JSON.parse(cookie ?? "{}") as Student;
       const ref = collection(db, "scores");
       await addDoc(ref, {
         score,

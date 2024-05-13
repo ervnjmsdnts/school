@@ -1,4 +1,5 @@
 "use client";
+import Timer from "@/components/timer";
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
 import Image from "next/image";
@@ -21,6 +22,11 @@ export default function AppLayout({ children }: PropsWithChildren) {
         >
           <Home />
         </Button>
+      )}
+      {pathname !== "/input-name" && (
+        <div className="absolute right-5 top-5">
+          <Timer />
+        </div>
       )}
       {children}
     </div>

@@ -15,12 +15,7 @@ export default function Home() {
       <div className="flex h-full items-center justify-center">
         <Link href="/input-name">
           <div className="relative top-16 h-64 w-80">
-            <Image
-              src="/startBtn.png"
-              className="animate-bounce"
-              alt="Start Button"
-              layout="fill"
-            />
+            <Image src="/startBtn.png" alt="Start Button" layout="fill" />
           </div>
         </Link>
       </div>

@@ -14,11 +14,13 @@ export default function PaginatedQuizzes({ quizzes }: { quizzes: Activity[] }) {
   const params = useParams<{ quarter: string; subject: string }>();
   const baseUrl = `/subjects/${params.subject}/quarters/${params.quarter}/quizzes`;
 
-  const { currentItems, currentPage, paginate, totalPages } =
-    usePagination(quizzes);
+  const { currentItems, currentPage, paginate, totalPages } = usePagination(
+    quizzes,
+    (a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0),
+  );
 
   return (
-    <div className="flex w-96 flex-col gap-8">
+    <div className="flex min-w-96 flex-col gap-8">
       <div className="flex flex-col gap-4">
         {currentItems.map((quiz, index) => (
           <MenuButton key={index} href={`${baseUrl}/${quiz.id}`}>

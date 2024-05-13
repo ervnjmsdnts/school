@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import AudioPlayer from "@/components/audio-player";
 import AudioProvider from "@/components/audio-content";
+import { CookiesProvider } from "next-client-cookies/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={kiddos.className}>
-        <AudioProvider>
-          <AudioPlayer />
-          <Toaster position="bottom-center" />
-          {children}
-        </AudioProvider>
+        <CookiesProvider>
+          <AudioProvider>
+            <AudioPlayer />
+            <Toaster position="bottom-center" />
+            {children}
+          </AudioProvider>
+        </CookiesProvider>
       </body>
     </html>
   );
