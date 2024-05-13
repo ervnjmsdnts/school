@@ -93,7 +93,13 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
           </div>
           {/* Options */}
           <div className="flex flex-col gap-4">
-            <div className="grid h-full w-full grid-cols-4 gap-2">
+            <div
+              className={cn(
+                "grid h-full w-full grid-cols-2 gap-2",
+                quiz.questions[questionIndex].options.length > 2 &&
+                  "grid-cols-4",
+              )}
+            >
               {quiz.questions[questionIndex].options.map((option, index) => (
                 <button
                   onClick={() => setSelected(index)}
