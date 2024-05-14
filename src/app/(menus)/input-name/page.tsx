@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import BoyTalk from "@/assets/boy-talk.gif";
 
 const schema = z.object({
   name: z
@@ -64,7 +63,7 @@ export default function InputNamePage() {
           </DialogHeader>
           <div className="grid grid-cols-2 items-center">
             <div className="relative flex h-64 w-56">
-              <Image src={BoyTalk} alt="boytalk" objectFit="cover" fill />
+              <Image src="/boy-talk.gif" alt="boytalk" objectFit="cover" fill />
             </div>
             <div className="grid gap-2">
               <p className="text-lg font-bold">Ito ang S.M.A.R.T.</p>

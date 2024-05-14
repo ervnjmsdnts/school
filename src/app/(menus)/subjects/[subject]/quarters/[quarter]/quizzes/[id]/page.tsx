@@ -9,9 +9,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Results from "../_component/results";
-import EnglishBG from "@/assets/english.gif";
-import FilipinoBG from "@/assets/filipino.gif";
-import MathBG from "@/assets/math.gif";
 
 export default function ActivityPage({
   params,
@@ -69,10 +66,10 @@ export default function ActivityPage({
         <Image
           src={
             params.subject === "english"
-              ? EnglishBG
+              ? "/english.gif"
               : params.subject === "filipino"
-                ? FilipinoBG
-                : MathBG
+                ? "/filipino.gif"
+                : "/math.gif"
           }
           alt="englishbg"
           objectFit="fill"

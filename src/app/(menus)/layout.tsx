@@ -5,7 +5,6 @@ import { Home } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { PropsWithChildren } from "react";
-import MainMenuGif from "@/assets/main-menu.gif";
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const pathname = usePathname();
@@ -13,7 +12,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
   return (
     <div className="relative h-full w-full">
       <div className="fixed -z-10 h-screen w-screen">
-        <Image src={MainMenuGif} alt="menu" objectFit="fill" layout="fill" />
+        <Image src="/main-menu.gif" alt="menu" objectFit="fill" layout="fill" />
       </div>
       {!["/main-menu", "/input-name"].includes(pathname) && (
         <Button
