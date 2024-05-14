@@ -53,7 +53,7 @@ export default function Timer() {
   }, []);
 
   return (
-    <div className="rounded-lg bg-amber-800 p-2 text-xl text-white">
+    <div className="relative z-10 rounded-lg bg-amber-800 p-2 text-xl text-white">
       <span>Session: </span>
       {typeof timeLeft === "object" && Object.keys(timeLeft).length > 0 ? (
         <span>

@@ -9,8 +9,15 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Results from "../_component/results";
+import EnglishBG from "@/assets/english.gif";
+import FilipinoBG from "@/assets/filipino.gif";
+import MathBG from "@/assets/math.gif";
 
-export default function ActivityPage({ params }: { params: { id: string } }) {
+export default function ActivityPage({
+  params,
+}: {
+  params: { id: string; subject: string };
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [quiz, setQuiz] = useState<Activity>({} as Activity);
   const [selected, setSelected] = useState<number | null>(null);
@@ -57,7 +64,21 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="relative h-full bg-amber-800">
+    <div className="relative h-full">
+      <div className="fixed -z-10 h-screen w-screen">
+        <Image
+          src={
+            params.subject === "english"
+              ? EnglishBG
+              : params.subject === "filipino"
+                ? FilipinoBG
+                : MathBG
+          }
+          alt="englishbg"
+          objectFit="fill"
+          fill
+        />
+      </div>
       <button
         onClick={() => router.back()}
         className="absolute left-3 top-3 rounded-full bg-amber-600 p-2"
@@ -71,7 +92,7 @@ export default function ActivityPage({ params }: { params: { id: string } }) {
       ) : (
         <div className="grid h-full grid-rows-2 gap-8 p-8">
           {/* Questions */}
-          <div className="rounded-lg border border-amber-900 p-8 text-white">
+          <div className="rounded-lg border border-amber-900 p-8">
             <div
               className={cn("flex h-full items-center justify-center gap-8")}
             >
