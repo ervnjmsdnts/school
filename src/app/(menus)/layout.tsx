@@ -12,7 +12,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
   return (
     <div className="relative h-full w-full">
       <div className="fixed -z-10 h-screen w-screen">
-        <Image src="/menu.gif" alt="menu" objectFit="fill" layout="fill" />
+        <Image src="/main-menu.gif" alt="menu" objectFit="fill" layout="fill" />
       </div>
       {!["/main-menu", "/input-name"].includes(pathname) && (
         <Button

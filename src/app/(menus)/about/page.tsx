@@ -51,8 +51,12 @@ export default function AboutPage() {
         </Label>
       </div>
       <div className="flex max-w-[1000px] flex-col gap-8 rounded-md bg-white p-8">
-        <p className="text-xl">{(toggle ? texts.english : texts.tagalog).p1}</p>
-        <p className="text-xl">{(toggle ? texts.english : texts.tagalog).p2}</p>
+        <p className="text-justify text-xl">
+          {(toggle ? texts.english : texts.tagalog).p1}
+        </p>
+        <p className="text-justify text-xl">
+          {(toggle ? texts.english : texts.tagalog).p2}
+        </p>
         <div className="flex flex-col gap-4">
           <h3 className="text-2xl font-bold">
             {(toggle ? texts.english : texts.tagalog).helper}
