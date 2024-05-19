@@ -13,7 +13,7 @@ const texts = {
     list: [
       "Software Developer: Gerick O. Recinto",
       "Hardware Creator: Chrystian Dominic Recio",
-      "Designer and Music: Eduard C. Morete",
+      "Design and Music: Eduard C. Morete",
       "Contents: Kaye Valenzuela",
     ],
   },
@@ -24,7 +24,7 @@ const texts = {
     list: [
       "Software Developer: Gerick O. Recinto",
       "Hardware Creator: Chrystian Dominic F. Recio",
-      "Designer and Music: Eduard C. Morete",
+      "Design and Music: Eduard C. Morete",
       "Contents: Kaye D. Valenzuela",
     ],
   },
