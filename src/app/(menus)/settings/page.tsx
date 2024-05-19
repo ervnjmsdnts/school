@@ -12,7 +12,7 @@ export default function SettingsPage() {
         <h1 className="text-3xl">Settings</h1>
       </div>
       <div className="flex w-full items-center justify-center gap-2">
-        <p>Volume:</p>
+        <p className="text-xl">Volume:</p>
         <Slider
           className="max-w-80"
           step={0.1}

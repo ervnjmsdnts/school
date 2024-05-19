@@ -26,19 +26,17 @@ export default function ActivityPage({
 
   useEffect(() => {
     (async () => {
-      (async () => {
-        const quizRef = doc(db, "activities", `${params.id}`);
-        const snapshot = await getDoc(quizRef);
-        setQuiz({
-          id: snapshot.id,
-          name: snapshot.data()?.name,
-          questions: snapshot.data()?.questions,
-          createdAt: snapshot.data()?.createdAt,
-          subject: snapshot.data()?.subject,
-          type: snapshot.data()?.type,
-        });
-        setIsLoading(false);
-      })();
+      const quizRef = doc(db, "activities", `${params.id}`);
+      const snapshot = await getDoc(quizRef);
+      setQuiz({
+        id: snapshot.id,
+        name: snapshot.data()?.name,
+        questions: snapshot.data()?.questions,
+        createdAt: snapshot.data()?.createdAt,
+        subject: snapshot.data()?.subject,
+        type: snapshot.data()?.type,
+      });
+      setIsLoading(false);
     })();
   }, [params.id]);
 
@@ -53,6 +51,18 @@ export default function ActivityPage({
       setQuestionIndex((prev) => prev + 1);
     } else {
       setShowScore(true);
+    }
+  };
+
+  const handlePreviousQuestion = () => {
+    if (questionIndex > 0) {
+      setQuestionIndex((prev) => prev - 1);
+      setSelected(answerList[questionIndex - 1]);
+      setAnswerList((prev) => prev.slice(0, -1));
+
+      if (selected === quiz.questions[questionIndex].answer) {
+        setScore((prev) => prev - 1);
+      }
     }
   };
 
@@ -103,7 +113,7 @@ export default function ActivityPage({
                 </div>
               )}
               <div className="flex w-full flex-1 justify-center">
-                <p className="max-w-96 text-center text-2xl">
+                <p className="max-w-96 text-center text-4xl">
                   {quiz.questions[questionIndex].question}
                 </p>
               </div>
@@ -122,7 +132,7 @@ export default function ActivityPage({
                 <button
                   onClick={() => setSelected(index)}
                   className={cn(
-                    "relative h-full w-full rounded-lg text-2xl text-white",
+                    "relative h-full w-full rounded-lg text-4xl text-white",
                     index === 0
                       ? "bg-red-500"
                       : index === 1
@@ -143,11 +153,21 @@ export default function ActivityPage({
                 </button>
               ))}
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+              <button
+                onClick={handlePreviousQuestion}
+                disabled={questionIndex === 0}
+                className="flex items-center gap-4 rounded-lg bg-amber-600 p-2 text-xl text-white disabled:bg-gray-500"
+                aria-disabled={questionIndex === 0}
+              >
+                <ArrowLeft className="h-8 w-8" />
+                Previous
+              </button>
               <button
                 onClick={handleNextQuestion}
                 disabled={selected === null}
                 className="flex items-center gap-4 rounded-lg bg-amber-600 p-2 text-xl text-white disabled:bg-gray-500"
+                aria-disabled={selected === null}
               >
                 Next
                 <ArrowRight className="h-8 w-8" />

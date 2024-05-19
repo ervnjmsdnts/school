@@ -1,5 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { db } from "@/lib/firebase";
 import { Activity, Student } from "@/lib/types";
 import { addDoc, collection } from "firebase/firestore";
@@ -63,9 +71,7 @@ export default function Results({
                               ? question.answer === choiceIndex
                                 ? "bg-green-500 text-white"
                                 : "bg-red-500 text-white"
-                              : question.answer === choiceIndex
-                                ? "bg-amber-600 text-white"
-                                : `border border-amber-600`
+                              : "border border-amber-600"
                           }`}
                         >
                           {choice}
@@ -76,9 +82,30 @@ export default function Results({
                 </div>
               ))}
             </div>
-            <Button className="mt-8 w-full text-xl" onClick={handleSubmit}>
-              Submit
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="mt-8 w-full text-xl">Submit</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="text-xl">
+                    Are you sure you want to submit your quiz?
+                  </DialogTitle>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button
+                    className="text-lg"
+                    variant="outline"
+                    onClick={() => window.location.reload()}
+                  >
+                    No
+                  </Button>
+                  <Button className="text-lg" onClick={handleSubmit}>
+                    Yes
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>

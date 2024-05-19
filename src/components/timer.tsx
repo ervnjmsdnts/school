@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
+import { Button } from "./ui/button";
 
 interface TimeLeft {
   minutes: string | number;
@@ -32,36 +41,68 @@ export default function Timer() {
     return timeLeft;
   };
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | {}>({});
+  const [initialized, setInitialized] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    if (!initialized) {
+      setTimeLeft(calculateTimeLeft());
+      setInitialized(true);
+    }
+
     const timer = setInterval(() => {
       const value = calculateTimeLeft();
       setTimeLeft(value);
 
       if (typeof value === "object" && Object.keys(value).length === 0) {
         clearInterval(timer);
-        cookies.remove("student");
-        router.push("/");
+        setOpenDialog(true);
+        // cookies.remove("student");
+        // router.push("/");
       }
     }, 1000);
 
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialized]);
+
+  const handleMainMenu = () => {
+    cookies.remove("student");
+    setOpenDialog(false);
+    router.push("/");
+  };
 
   return (
-    <div className="relative z-10 rounded-lg bg-amber-800 p-2 text-xl text-white">
-      <span>Session: </span>
-      {typeof timeLeft === "object" && Object.keys(timeLeft).length > 0 ? (
-        <span>
-          {(timeLeft as TimeLeft).minutes}:{(timeLeft as TimeLeft).seconds}
-        </span>
-      ) : (
-        <span>Timer expired</span>
-      )}
-    </div>
+    <>
+      <Dialog open={openDialog} onOpenChange={handleMainMenu}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-xl">
+              Thank you for using S.M.A.R.T.
+            </DialogTitle>
+            <DialogDescription className="text-base">
+              Sad to say but your session has ended
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button className="text-lg" onClick={handleMainMenu}>
+              Ok
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <div className="relative z-10 flex items-center gap-2 rounded-lg bg-amber-800 p-2 text-xl text-white">
+        <p>Session: </p>
+        {typeof timeLeft === "object" && Object.keys(timeLeft).length > 0 ? (
+          <p>
+            {(timeLeft as TimeLeft).minutes}:{(timeLeft as TimeLeft).seconds}
+          </p>
+        ) : (
+          <p>Timer expired</p>
+        )}
+      </div>
+    </>
   );
 }

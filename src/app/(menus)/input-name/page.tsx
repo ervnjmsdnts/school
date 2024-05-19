@@ -93,6 +93,7 @@ export default function InputNamePage() {
           <div className="grid gap-2">
             <Input
               {...form.register("name")}
+              autoComplete="off"
               className="max-w-64 p-4 text-xl"
               placeholder="Input name..."
             />

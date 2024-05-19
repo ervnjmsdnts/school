@@ -14,7 +14,13 @@ export default function AppLayout({ children }: PropsWithChildren) {
       <div className="fixed -z-10 h-screen w-screen">
         <Image src="/main-menu.gif" alt="menu" objectFit="fill" layout="fill" />
       </div>
-      {!["/main-menu", "/input-name"].includes(pathname) && (
+      {![
+        "/main-menu",
+        "/input-name",
+        "/about",
+        "/settings",
+        "/subjects",
+      ].includes(pathname) && (
         <Button
           onClick={() => router.push("/main-menu")}
           size="icon"

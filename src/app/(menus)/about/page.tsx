@@ -34,7 +34,7 @@ export default function AboutPage() {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-16">
+    <div className="flex h-full flex-col items-center justify-center gap-4">
       <div className="flex items-center gap-8">
         <BackButton />
         <h1 className="text-3xl">About</h1>
@@ -51,20 +51,20 @@ export default function AboutPage() {
         </Label>
       </div>
       <div className="flex max-w-[1000px] flex-col gap-8 rounded-md bg-white p-8">
-        <p className="text-justify text-xl">
+        <p className="text-justify text-lg">
           {(toggle ? texts.english : texts.tagalog).p1}
         </p>
-        <p className="text-justify text-xl">
+        <p className="text-justify text-lg">
           {(toggle ? texts.english : texts.tagalog).p2}
         </p>
         <div className="flex flex-col gap-4">
-          <h3 className="text-2xl font-bold">
+          <h3 className="text-xl font-bold">
             {(toggle ? texts.english : texts.tagalog).helper}
           </h3>
-          <ul className="list-disc">
+          <ul className="ml-5 list-disc">
             {(toggle ? texts.english : texts.tagalog).list.map(
               (item, index) => (
-                <li key={index} className={cn("text-2xl")}>
+                <li key={index} className={cn("text-xl")}>
                   {item}
                 </li>
               ),

@@ -13,10 +13,11 @@ export default function Home() {
         />
       </div>
       <div className="flex h-full items-center justify-center">
-        <Link href="/input-name">
-          <div className="relative top-16 h-64 w-80">
-            <Image src="/start-button.png" alt="Start Button" layout="fill" />
-          </div>
+        <Link
+          href="/input-name"
+          className="mt-8 animate-bounce text-4xl font-bold uppercase text-white"
+        >
+          Click here to start
         </Link>
       </div>
     </main>
